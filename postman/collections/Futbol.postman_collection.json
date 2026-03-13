@@ -1,0 +1,448 @@
+{
+  "info": {
+    "_postman_id": "48796c37-0ccf-4581-bbe2-a625cdfbe2a4",
+    "name": "Futbol",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "item": [
+        {
+          "name": "Crear un primer usuario",
+          "id": "da33d091-79d6-4c2e-960e-9dfa52cdd470",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Juan Pedro Perez\",\r\n    \"password\": \"123asAd!\",\r\n    \"email\": \"juanperez@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{auth}}/registrarse",
+              "host": [
+                "{{auth}}"
+              ],
+              "path": [
+                "registrarse"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Autenticar primer usuario",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "e5c70fec-8a62-4430-93d2-39e60d235511",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "6c877f0b-7c73-45a5-a6dd-c75a45ff0642",
+                "exec": [
+                  "const respuesta = pm.response.json();\r",
+                  "\r",
+                  "// Verificamos que el login haya sido exitoso \r",
+                  "if (pm.response.code === 200) {\r",
+                  "    // Guardamos el token en una variable de Postman llamada \"jwt_token\"\r",
+                  "    pm.collectionVariables.set(\"jwt_token\", respuesta.token);\r",
+                  "\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "id": "03930537-8c05-435d-b79f-85327c76a731",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"password\": \"123asAd!\",\r\n    \"email\": \"juanperez@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{auth}}/login",
+              "host": [
+                "{{auth}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Solicitar cambio contraseña",
+          "id": "7a7e6ab9-2213-4848-b8c6-fa606af0c983",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\":2,\r\n    \"password\": \"123asAd!\",\r\n    \"nuevaPassword\": \"123asd54321dfa!An\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{auth}}/cambiar-password",
+              "host": [
+                "{{auth}}"
+              ],
+              "path": [
+                "cambiar-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Solicitar cambio mail",
+          "id": "b10c0bbd-3f6e-4fc1-a6aa-3c8734bf626c",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\":2,\r\n    \"nuevoEmail\": \"solicito-cambio-email@gmail.com\",\r\n    \"password\": \"123asd54321dfa!An\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{auth}}/cambiar-email",
+              "host": [
+                "{{auth}}"
+              ],
+              "path": [
+                "cambiar-email"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "921f139e-fc09-433e-b408-2de6fb270674"
+    },
+    {
+      "name": "Equipos",
+      "item": [
+        {
+          "name": "Get general",
+          "id": "076071b3-2602-421c-a8d3-dbf27d09d86e",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{equipos}}/general",
+              "host": [
+                "{{equipos}}"
+              ],
+              "path": [
+                "general"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Post equipo incompleto",
+          "id": "7d05f3c0-996e-4024-9f1f-ea9ea69c6e75",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Inter Miami\",\r\n    \"shortName\": \"Inter\",\r\n    \"tla\": \"MIA\",\r\n    \"email\": \"contact@intermiami.com\",\r\n    \"area\": {\r\n        \"name\": \"USA\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{equipos}}/agregar",
+              "host": [
+                "{{equipos}}"
+              ],
+              "path": [
+                "agregar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar equipo incompleto",
+          "id": "f0fbddeb-fb94-40c8-904d-ce2e5a1838ab",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{equipos}}/borrar/18",
+              "host": [
+                "{{equipos}}"
+              ],
+              "path": [
+                "borrar",
+                "18"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get equipo en particular",
+          "id": "d34b4d2b-a9d9-462f-9ff9-87d69353097f",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{equipos}}/346",
+              "host": [
+                "{{equipos}}"
+              ],
+              "path": [
+                "346"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Agregar equipo para modificar",
+          "id": "bd697868-ed99-4a24-9ab7-96e79c6f341e",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Prueba para probar patch\",\r\n    \"shortName\": \"pr\",\r\n    \"tla\": \"MIA\",\r\n    \"email\": \"contact@intermiami.com\",\r\n    \"area\": {\r\n        \"name\": \"USA\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{equipos}}/agregar",
+              "host": [
+                "{{equipos}}"
+              ],
+              "path": [
+                "agregar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Modificar equipo de prueba",
+          "id": "bac1a6e5-2c28-4545-b0cd-282239306b72",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\":\"2\",\r\n    \"name\":\"Prueba para de nuevo probar patch y cambiar el name\",\r\n    \"clubColors\": \"Azul y amarillo\",\r\n    \"venue\": \"Algo\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{equipos}}/modificar",
+              "host": [
+                "{{equipos}}"
+              ],
+              "path": [
+                "modificar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Post con imagen",
+          "id": "9b4e654e-3ef2-4685-b2b7-4cf358c437d1",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Boca juniors con formData",
+                  "type": "text",
+                  "uuid": "e9c4e584-c8e2-4e77-93a6-6424744c4684"
+                },
+                {
+                  "key": "image",
+                  "description": "Agrega una imagen cualquiera (5MB maximo) ",
+                  "type": "file",
+                  "uuid": "dc569c8d-09b6-4a16-a34d-3f5625aaf85a",
+                  "src": [
+                    "/C:/Users/agusp/Downloads/imagen_2026-01-21_180820415-removebg-preview.png"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{equipos}}/agregar",
+              "host": [
+                "{{equipos}}"
+              ],
+              "path": [
+                "agregar"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "253cfd32-f71d-4aa5-89fd-757783de15f6"
+    }
+  ],
+  "variable": [
+    {
+      "id": "9905d652-b6fb-4ce7-af16-932d587e6811",
+      "key": "baseURL",
+      "value": ""
+    },
+    {
+      "id": "33867671-7e66-4234-99f1-a1e18eec061a",
+      "key": "equipos",
+      "value": ""
+    },
+    {
+      "id": "c71b8d1c-2fd2-46cf-bed8-4beae67e2176",
+      "key": "auth",
+      "value": ""
+    },
+    {
+      "id": "d2dd1318-d42f-41ff-967d-e644e905bc2b",
+      "key": "jwt_token",
+      "value": ""
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "name": "gestor-futbol-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon -r dotenv/config src/server.js",
+    "lint": "eslint .",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand",
+    "test:unit": "jest test/unit",
+    "test:int": "jest test/integration --runInBand",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^2.9.0",
+    "cors": "^2.8.5",
+    "crypt": "^0.0.2",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "express-handlebars": "^8.0.4",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.10.1",
+    "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^4.0.0",
+    "pg": "^8.17.2",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.0",
+    "@eslint/js": "^9.39.2",
+    "babel-jest": "^30.3.0",
+    "babel-plugin-transform-import-meta": "^2.3.3",
+    "cross-env": "^10.1.0",
+    "eslint": "^9.39.2",
+    "globals": "^17.0.0",
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.11",
+    "supertest": "^7.2.2"
+  },
+  "description": "API RESTful para el Gestor de Fútbol",
+  "keywords": [
+    "api",
+    "express",
+    "sequelize",
+    "postgresql"
+  ],
+  "author": "",
+  "license": "ISC",
+  "jest": {
+  "setupFiles": ["dotenv/config"]
+}
+}
