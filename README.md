@@ -44,7 +44,8 @@ Backend robusto y seguro para una aplicación de gestión de equipos de fútbol.
      ```
 2. Instalar dependencias:
     ```bash
-      npm install
+    cd football-manager-api
+    npm install
     ```
 3. Configurar variables de entorno (crear archivo ```.env```):
     ```
