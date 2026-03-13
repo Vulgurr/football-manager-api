@@ -74,3 +74,4 @@ Para ejecutar los tests y probar la funcionalidad, ejecuta:
 
 ---
 **¿Buscas el Frontend?** Puedes ver el repositorio del cliente desarrollado en React [haciendo clic aquí](https://github.com/Vulgurr/football-manager-frontend).
+> **Aviso de Cold Start:** Al estar alojado en el plan gratuito de Render, el servidor entra en reposo tras períodos de inactividad. La primera petición puede tardar hasta un minuto en responder.
